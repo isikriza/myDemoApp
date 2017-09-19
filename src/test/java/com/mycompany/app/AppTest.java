@@ -54,7 +54,7 @@ public class AppTest
 
     public void testNotPositiveParam() {
       ArrayList<String> strings = new ArrayList<>(Arrays.asList("ali", "ayse", "mehmetcan", "fatma"));
-      assertEquals(new App().findStrings(strings, 0, -2), null);
+      assertEquals(new App().findStrings(strings, 0, -2), "");
     }
 
     public void testEmptyArray() {
@@ -63,7 +63,7 @@ public class AppTest
     }
 
     public void testNull() {
-      assertEquals(new App().findStrings(null, 0, 3), null);
+      assertEquals(new App().findStrings(null, 0, 3), "");
     }
 
 }

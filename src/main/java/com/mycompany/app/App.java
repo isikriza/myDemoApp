@@ -17,11 +17,11 @@ public class App
 	String tmp = "";
 	if(i <= 0 && j <= 0) {
 		System.out.println("i ve j değerleri pozitif sayi olmalidir!");
-		return null;
+		return "";
 	}
 
 	if(strings == null) {
-		return null;
+		return "";
 	}
 
 	for(String string : strings) {
