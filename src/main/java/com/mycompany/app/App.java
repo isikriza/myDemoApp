@@ -66,7 +66,7 @@ public class App
           String input3 = req.queryParams("input3").replaceAll("\\s","");
           int input3AsInt = Integer.parseInt(input3);
 
-          String result = App.findStrings(inputList, input2AsInt, input3AsInt);
+          String result = "' " + App.findStrings(inputList, input2AsInt, input3AsInt) + " '";
 
           Map map = new HashMap();
           map.put("result", result);
