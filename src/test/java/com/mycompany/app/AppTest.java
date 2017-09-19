@@ -37,4 +37,33 @@ public class AppTest
         assertTrue( true );
     }
 
+    public void testIsFound1() {
+      ArrayList<String> strings = new ArrayList<>(Arrays.asList("ali", "ayse", "mehmetcan", "fatma")); // i < j icin
+      assertEquals(new App().findStrings(strings, 3, 5), "ali, ayse, fatma");
+    }
+
+    public void testIsFound2() {
+      ArrayList<String> strings = new ArrayList<>(Arrays.asList("ali", "ayse", "mehmetcan", "fatma")); // i > j icin
+      assertEquals(new App().findStrings(strings, 5, 3), "ali, ayse, fatma");
+    }
+
+    public void testNotFound() {
+      ArrayList<String> strings = new ArrayList<>(Arrays.asList("ali", "ayse", "mehmetcan", "fatma"));
+      assertEquals(new App().findStrings(strings, 0, 2), "");
+    }
+
+    public void testNotPositiveParam() {
+      ArrayList<String> strings = new ArrayList<>(Arrays.asList("ali", "ayse", "mehmetcan", "fatma"));
+      assertEquals(new App().findStrings(strings, 0, -2), null);
+    }
+
+    public void testEmptyArray() {
+      ArrayList<String> strings = new ArrayList<>();
+      assertEquals(new App().findStrings(strings, 0, 3), "");
+    }
+
+    public void testNull() {
+      assertEquals(new App().findStrings(null, 0, 3), null);
+    }
+
 }
