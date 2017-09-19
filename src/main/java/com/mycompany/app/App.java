@@ -12,32 +12,49 @@ import spark.template.mustache.MustacheTemplateEngine;
 
 public class App
 {
-    public static boolean search(ArrayList<Integer> array, int e) {
-      System.out.println("inside search");
-      if (array == null) return false;
+    public static String findStrings(ArrayList<String> strings, int i, int j) { //Bu metot, verilen stringlerin uzunlukları i ve j değerlerinin
+										//arasında kalan stringleri bulup döner.
+	String tmp = "";
+	if(i <= 0 && j <= 0) {
+		System.out.println("i ve j değerleri pozitif sayi olmalidir!");
+		return null;
+	}
 
-      for (int elt : array) {
-        if (elt == e) return true;
-      }
-      return false;
+	if(strings == null) {
+		return null;
+	}
+
+	for(String string : strings) {
+		if(i < j) {
+			if(string.length() >= i && string.length() <= j)
+				tmp += string + ", ";
+		}
+		else {
+                        if(string.length() <= i && string.length() >= j)
+                                tmp += string + ", ";
+		}
+	}
+
+	if(tmp.length() >= 2)
+		tmp = tmp.substring(0,tmp.length() - 2);
+
+	return tmp;
     }
 
     public static void main(String[] args) {
         port(getHerokuAssignedPort());
 
-        get("/", (req, res) -> "Hello, World");
+        get("/", (req, res) -> "HELLO FRIEND.");
 
         post("/compute", (req, res) -> {
-          //System.out.println(req.queryParams("input1"));
-          //System.out.println(req.queryParams("input2"));
 
           String input1 = req.queryParams("input1");
           java.util.Scanner sc1 = new java.util.Scanner(input1);
           sc1.useDelimiter("[;\r\n]+");
-          java.util.ArrayList<Integer> inputList = new java.util.ArrayList<>();
+          java.util.ArrayList<String> inputList = new java.util.ArrayList<>();
           while (sc1.hasNext())
           {
-            int value = Integer.parseInt(sc1.next().replaceAll("\\s",""));
+            String value = sc1.next().replaceAll("\\s","");
             inputList.add(value);
           }
           System.out.println(inputList);
@@ -46,9 +63,12 @@ public class App
           String input2 = req.queryParams("input2").replaceAll("\\s","");
           int input2AsInt = Integer.parseInt(input2);
 
-          boolean result = App.search(inputList, input2AsInt);
+          String input3 = req.queryParams("input3").replaceAll("\\s","");
+          int input3AsInt = Integer.parseInt(input3);
 
-         Map map = new HashMap();
+          String result = App.findStrings(inputList, input2AsInt, input3AsInt);
+
+          Map map = new HashMap();
           map.put("result", result);
           return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
